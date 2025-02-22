@@ -1,15 +1,21 @@
 const { Client, GatewayIntentBits } = require('discord.js');
-require('dotenv').config(); // Load environment variables from .env file
+require('dotenv').config();
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
+const client = new Client({ 
+  intents: [
+      GatewayIntentBits.Guilds, 
+          GatewayIntentBits.GuildMessages
+            ] 
+            });
 
-client.once('ready', () => {
-  console.log('Bot is online!');
+            client.once('ready', () => {
+              console.log('Bot is online!');
 
-    setInterval(() => {
-        client.channels.cache.get('1339751211363995709').send('@everyone hello');
-          }, 1000); // 100 milliseconds = 1 second
-          });
+                setInterval(() => {
+                    client.channels.fetch('1339751211363995709')
+                          .then(channel => channel.send('@everyone hello'))
+                                .catch(console.error);
+                                  }, 1000); // 1 second
+                                  });
 
-          // Use the token from the .env file
-          client.login(process.env.DISCORD_TOKEN);
+                                  client.login(process.env.DISCORD_TOKEN);
